@@ -5,30 +5,22 @@ const createOrder = async (req, res) => {
   try {
     let data = req.body;
 
-    let { fruitName, name, quantity } = data;
+    let { fruitName, quantity } = data;
 
     const fetchData = await fruitModel
       .findOne({ fruitName: fruitName })
       .select({ _id: 0, fruitName: 1, price: 1 });
     if (!fetchData)
-      return res
-        .status(404)
-        .send({
-          status: false,
-          message: `This Fruit: ${fruitName} is not available now!`,
+      return res.status(404).send({status: false,
+          message: ` ${fruitName} is not available`,
         });
 
     data.totalPrice = fetchData.price * quantity;
 
     const createOrder = await OrderModel.create(data);
-
-    return res
-      .status(201)
-      .send({
-        status: true,
-        message: "Order Created Successfully.",
-        data: createOrder,
-      });
+    return res.status(201).send({status: true,
+      message: "Order Created Successfully.",
+      data: createOrder,});
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
   }
@@ -48,11 +40,11 @@ const getOrder = async (req, res) => {
       if (!orderDetails)
         return res
           .status(404)
-          .send({ status: false, message: "No Order Found!" });
+          .send({ status: false, message: "Order Not Found" });
 
       return res
         .status(200)
-        .send({ status: true, message: "Your Orders", data: orderDetails });
+        .send({ status: true, message: "Your Order", data: orderDetails });
     } else {
       const orderDetails = await OrderModel.find({ name: name }).select({
         createdAt: 0,
@@ -60,13 +52,10 @@ const getOrder = async (req, res) => {
         __v: 0,
       });
       if (orderDetails.length == 0)
-        return res
-          .status(404)
-          .send({ status: false, message: "No Order Found!" });
+        return res.status(404).send({ status: false, message: "Order Not Found" });
 
-      return res
-        .status(200)
-        .send({ status: true, message: "Your Orders", data: orderDetails });
+      return res.status(200)
+        .send({ status: true, message: "Your Order", data: orderDetails });
     }
   } catch (error) {
     return res.status(500).send({ status: false, message: error.message });
@@ -84,11 +73,8 @@ const updateOrder = async (req, res) => {
       .findOne({ fruitName: fruitName })
       .select({ _id: 0, fruitName: 1, price: 1 });
     if (!fetchData)
-      return res
-        .status(404)
-        .send({
-          status: false,
-          message: `This Fruit: ${fruitName} is not available now!`,
+      return res.status(404).send({status: false,
+          message: `This Fruit: ${fruitName} is not available now`,
         });
 
     data.totalPrice = fetchData.price * quantity;
@@ -100,13 +86,10 @@ const updateOrder = async (req, res) => {
     ).select({ createdAt: 0, updatedAt: 0, __v: 0 });
 
     if (!orderDetails)
-      return res
-        .status(404)
-        .send({ status: false, message: "No Order Found!" });
+      return res.status(404)
+        .send({ status: false, message: "Order Not Found" });
 
-    return res
-      .status(200)
-      .send({
+    return res.status(200).send({
         status: true,
         message: "Your Order Updated Successfully",
         data: orderDetails,

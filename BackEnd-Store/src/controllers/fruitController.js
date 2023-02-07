@@ -7,19 +7,14 @@ const createFruit = async (req, res) => {
       fruitName: data.fruitName,
     });
     if (duplicateFruit)
-      return res
-        .status(400)
-        .send({
+      return res.status(400).send({
           status: false,
-          message: `Already exist this Fruit: ${data.fruitName}`,
+          message: `${data.fruitName} is Already exist`,
           data: duplicateFruit,
         });
     const createData = await fruitModel.create(data);
 
-    return res
-      .status(201)
-      .send({
-        status: true,
+    return res.status(201).send({status: true,
         message: "Fruit Data Created Successfully",
         data: createData,
       });
@@ -34,45 +29,32 @@ const getFruitData = async (req, res) => {
 
     if (data.fruitName) {
       if (!data.quantity)
-        return res
-          .status(400)
+        return res.status(400)
           .send({ status: false, message: "Please enter quantity!" });
 
       const fetchData = await fruitModel
         .findOne({ fruitName: data.fruitName })
-        .select({ _id: 0, fruitName: 1, price: 1 })
-        .lean();
+        .select({ _id: 0, fruitName: 1, price: 1 }).lean();
       if (!fetchData)
-        return res
-          .status(404)
-          .send({
-            status: false,
+        return res.status(404) .send({ status: false,
             message: "Not Available! or you have to put one fruit at a time.",
           });
 
       fetchData.price = fetchData.price * data.quantity;
       fetchData.quantity = data.quantity;
 
-      return res
-        .status(200)
-        .send({
-          status: true,
+      return res.status(200) .send({status: true,
           message: "Fetch Data Successfully",
           data: fetchData,
         });
     } else {
-      const fetchData = await fruitModel
-        .find()
+      const fetchData = await fruitModel.find()
         .select({ _id: 0, fruitName: 1, price: 1 });
       if (fetchData.length == 0)
-        return res
-          .status(404)
+        return res.status(404)
           .send({ status: false, message: "No Fruits Available now!" });
 
-      return res
-        .status(200)
-        .send({
-          status: true,
+      return res .status(200) .send({ status: true,
           message: "Fetch Data Successfully",
           data: fetchData,
         });
