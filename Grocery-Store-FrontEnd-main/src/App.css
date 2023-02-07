@@ -7,8 +7,6 @@
   pointer-events: none;
 }
 
-
-
 .logo h2 {
   height: 150px;
   font-size: 50px;
@@ -20,7 +18,7 @@
   justify-content: center;
   position: sticky;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(54, 45, 172, 0.3);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -30,7 +28,7 @@
 }
 
 .App-header {
-  background-color: #1d222d;
+  background-color: #0d4cd2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

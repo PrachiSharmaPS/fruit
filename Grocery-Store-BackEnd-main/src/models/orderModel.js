@@ -1,25 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-
-const orderSchema = new mongoose.Schema({
-
+const orderSchema = new mongoose.Schema(
+  {
     fruitName: {
-        type: String,
+      type: String,
     },
-
     name: {
-        type: String
+      type: String,
     },
 
     quantity: {
-        type: Number
+      type: Number,
     },
 
     totalPrice: {
-        type: Number
+      type: Number,
     },
+  },
+  { timestamps: true }
+);
 
-}, { timestamps: true })
-
-
-module.exports = mongoose.model('Order', orderSchema)
+module.exports = mongoose.model("Order", orderSchema);

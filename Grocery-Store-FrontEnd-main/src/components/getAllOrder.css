@@ -38,7 +38,7 @@ li a:hover {
 }
 
 .b {
-    color: rgb(182, 17, 17);
+    color: rgb(0, 0, 0);
     display: inline-table;
     align-items: center;
     justify-content: center;
@@ -61,7 +61,7 @@ li a:hover {
 }
 
 .d {
-    color: rgb(182, 17, 17);
+    color: rgb(10, 5, 5);
     display: inline-table;
     align-items: center;
     justify-content: center;
@@ -94,14 +94,14 @@ li a:hover {
     padding: 3px;
     font-size: 1.5rem;
     font-weight: 600;
-    border: 2px solid red;
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.329);
 
 }
 
 .search input::placeholder {
-    color: brown;
+    color: rgb(35, 29, 29);
     font-weight: 200;
     text-align: center;
 }
